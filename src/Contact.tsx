@@ -33,7 +33,11 @@ export function Contact() {
       try {
         const r = await fetch(`${SB_URL}/rest/v1/messages`, {
           method: 'POST',
-          headers: { 'Content-Type': 'application/json', apikey: SB_KEY, Authorization: `Bearer ${SB_KEY}`, Prefer: 'return=minimal' },
+          headers: {
+            'Content-Type': 'application/json', apikey: SB_KEY, Prefer: 'return=minimal',
+            // Legacy anon keys are JWTs (send as Bearer); new sb_publishable_ keys are not, so only the apikey header is sent.
+            ...(SB_KEY.startsWith('eyJ') ? { Authorization: `Bearer ${SB_KEY}` } : {}),
+          },
           body: JSON.stringify({ ...d, subject: d.subject || null, lang }),
         });
         if (!r.ok) throw new Error(`HTTP ${r.status}`);
