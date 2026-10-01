@@ -6,13 +6,14 @@ import { useApp } from './store';
 const SB_URL = import.meta.env.VITE_SUPABASE_URL as string | undefined;
 const SB_KEY = import.meta.env.VITE_SUPABASE_ANON_KEY as string | undefined;
 
-type Status = 'idle' | 'sending' | 'sent' | 'wa' | 'error';
+type Status = 'idle' | 'sending' | 'sent' | 'wa';
 const empty = { name: '', email: '', subject: '', message: '', website: '' };
 
 export function Contact() {
   const { t, lang } = useApp();
   const [f, setF] = useState(empty);
   const [status, setStatus] = useState<Status>('idle');
+  const [err, setErr] = useState(false); // persistent error text under the form (cleared on next submit)
   const c = ui.contact;
 
   const on = (k: keyof typeof empty) => (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
@@ -25,6 +26,7 @@ export function Contact() {
   const submit = async (e: FormEvent) => {
     e.preventDefault();
     if (status !== 'idle') return;
+    setErr(false);
     if (f.website) { finish('sent', true); return; } // honeypot: only bots fill it
     const d = { name: f.name.trim(), email: f.email.trim(), subject: f.subject.trim(), message: f.message.trim() };
 
@@ -42,9 +44,10 @@ export function Contact() {
         });
         if (!r.ok) throw new Error(`HTTP ${r.status}`);
         finish('sent', true);
-      } catch (err) {
-        console.error('Supabase insert failed:', err);
-        finish('error', false);
+      } catch (error) {
+        console.error('Supabase insert failed:', error);
+        setStatus('idle');
+        setErr(true);
       }
       return;
     }
@@ -56,7 +59,7 @@ export function Contact() {
     finish('wa', true);
   };
 
-  const label = { idle: c.send, sending: c.sending, sent: c.sent, wa: c.waOpened, error: c.error }[status];
+  const label = { idle: c.send, sending: c.sending, sent: c.sent, wa: c.waOpened }[status];
 
   return (
     <section id="contact"><div className="container">
@@ -83,6 +86,7 @@ export function Contact() {
           <div className="field"><textarea rows={5} maxLength={2000} required value={f.message} onChange={on('message')} placeholder={t(c.message)} aria-label={t(c.message)} /></div>
           <div className="hp" aria-hidden="true"><input type="text" tabIndex={-1} autoComplete="off" value={f.website} onChange={on('website')} /></div>
           <button type="submit" className="btn-gold" disabled={status === 'sending'}>{t(label)} {status === 'idle' && '✈'}</button>
+          {err && <p className="form-error" role="alert">{t(c.error)}</p>}
         </form>
       </div>
     </div></section>

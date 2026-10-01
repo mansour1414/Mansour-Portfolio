@@ -72,9 +72,38 @@ export const services: { icon: string; title: L; desc: L }[] = [
   { icon: 'pen', title: { ar: 'الجرافيك والديزاين', en: 'Graphics & Design' }, desc: { ar: 'تصميم جرافيكي وديزاين لمشاريعك.', en: 'Graphic design and visuals for your projects.' } },
 ];
 
-/* [ناقص] certificates.pdf was not available. Add entries exactly as written in the PDF:
-   { name: 'CERTIFICATE NAME', issuer: 'ISSUER', year: 'YEAR' } */
-export const certificates: { name: string; issuer: string; year: string }[] = [];
+/* Certificates. Never put national ID numbers here. Drive links must be shared as "Anyone with the link". */
+export const certificates: { name: L; issuer: L; date: L; url: string; id?: string; note?: L }[] = [
+  {
+    name: same('Google Ads Search Certification (2026)'),
+    issuer: same('Google Skillshop'),
+    date: { ar: '30 سبتمبر 2026', en: 'Sep 30, 2026' },
+    note: { ar: 'صالحة حتى 30 سبتمبر 2027', en: 'Valid until Sep 30, 2027' },
+    id: '195609026',
+    url: 'https://www.credential.net/be12d1cb-5921-4f62-aae2-37a77bf6b8f0',
+  },
+  {
+    name: same('Coding Foundations'),
+    issuer: same('Sololearn'),
+    date: { ar: '29 سبتمبر 2026', en: 'Sep 29, 2026' },
+    id: 'CC-8G9OS3GF',
+    url: 'https://drive.google.com/file/d/1m0vx_vejWrWnyh5JPk64d7xvLV_icybg/view?usp=drivesdk',
+  },
+  {
+    name: { ar: 'الأمن السيبراني: ما بين التحديات والفرص', en: 'Cybersecurity: Challenges and Opportunities' },
+    issuer: { ar: 'دروب – صندوق تنمية الموارد البشرية', en: 'Doroob – Human Resources Development Fund' },
+    date: { ar: '30 سبتمبر 2026', en: 'Sep 30, 2026' },
+    note: { ar: '2 ساعات تدريبية', en: '2 training hours' },
+    url: 'https://drive.google.com/file/d/1pjgDVpjnBBrD-X1nmOp7NB2zaS32E-o5/view?usp=drivesdk',
+  },
+  {
+    name: { ar: 'تعلم الآلة', en: 'Machine Learning' },
+    issuer: { ar: 'دروب – صندوق تنمية الموارد البشرية', en: 'Doroob – Human Resources Development Fund' },
+    date: { ar: '30 سبتمبر 2026', en: 'Sep 30, 2026' },
+    note: { ar: '3 ساعات تدريبية', en: '3 training hours' },
+    url: 'https://drive.google.com/file/d/1Ighx3cAwppX2NP8KRqsz1-iVMcR-CD_1/view?usp=drivesdk',
+  },
+];
 
 export const ui = {
   letsTalk: { ar: 'لنتحدث', en: "Let's Talk" } as L,
@@ -89,6 +118,7 @@ export const ui = {
     contact: { ar: 'لنعمل معًا', en: "LET'S WORK TOGETHER" } as L,
   },
   additional: { ar: 'إضافي', en: 'Additional' } as L,
+  viewCert: { ar: 'عرض الشهادة', en: 'View certificate' } as L,
   stats: {
     projects: { ar: 'مشاريع مميزة', en: 'Featured Projects' } as L,
     services: { ar: 'خدمات', en: 'Services' } as L,

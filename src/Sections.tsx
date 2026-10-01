@@ -137,16 +137,22 @@ export function Services() {
 }
 
 export function Certificates() {
-  const medal = <div className="medal"><Svg size={28}>{icons.medal}</Svg></div>;
+  const { t } = useApp();
   return (
     <section id="certificates"><div className="container">
       <Head title={ui.sections.certificates} />
       <div className="cert-grid">
-        {certificates.length > 0
-          ? certificates.map((c) => (
-              <div className="cert reveal" key={`${c.name}-${c.year}`}>{medal}<h4>{c.name}</h4><span>{c.issuer} · {c.year}</span></div>
-            ))
-          : <div className="cert placeholder reveal">{medal}<h4>[ناقص]</h4><span>[ناقص]</span></div>}
+        {certificates.map((c) => (
+          <div className="cert reveal" key={c.url}>
+            <div className="medal"><Svg size={28}>{icons.medal}</Svg></div>
+            <h4>{t(c.name)}</h4>
+            <span>{t(c.issuer)}</span>
+            <span>{t(c.date)}</span>
+            {c.note && <span>{t(c.note)}</span>}
+            {c.id && <span dir="ltr">ID: {c.id}</span>}
+            <a className="cert-link" href={c.url} target="_blank" rel="noopener noreferrer">{t(ui.viewCert)} ↗</a>
+          </div>
+        ))}
       </div>
     </div></section>
   );

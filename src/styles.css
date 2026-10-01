@@ -93,10 +93,11 @@ nav{
 .hamburger{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:6px}
 .hamburger span{width:24px;height:2px;background:var(--gold);border-radius:2px;transition:.3s}
 
-/* mobile menu */
+/* mobile menu (visibility:hidden keeps links out of the Tab order while closed) */
 .mobile-menu{position:fixed;inset:0;z-index:99;background:var(--bg);display:flex;flex-direction:column;
-  align-items:center;justify-content:center;gap:26px;opacity:0;pointer-events:none;transition:opacity .35s}
-.mobile-menu.open{opacity:1;pointer-events:auto}
+  align-items:center;justify-content:center;gap:26px;opacity:0;visibility:hidden;pointer-events:none;
+  transition:opacity .35s,visibility .35s}
+.mobile-menu.open{opacity:1;visibility:visible;pointer-events:auto}
 .mobile-menu a{color:var(--text);text-decoration:none;font-size:1.5rem;font-weight:700}
 .mobile-menu a:hover{color:var(--gold)}
 .mobile-close{position:absolute;top:24px;inset-inline-end:24px}
@@ -236,7 +237,10 @@ html[dir="rtl"] .work:hover .go{transform:rotate(45deg)}
   background:linear-gradient(135deg,var(--gold-2),var(--gold) 60%,var(--gold-3));color:#181204;
   box-shadow:0 0 0 6px rgba(212,175,55,.12),0 10px 26px rgba(212,175,55,.35)}
 .cert h4{font-size:.98rem;margin-bottom:6px}
-.cert span{color:var(--muted);font-size:.8rem}
+.cert span{display:block;color:var(--muted);font-size:.8rem;margin-bottom:2px}
+.cert-link{display:inline-block;margin-top:14px;color:var(--gold-text);text-decoration:none;font-size:.85rem;font-weight:700;
+  border:1px solid var(--line);border-radius:30px;padding:7px 16px;transition:.3s}
+.cert-link:hover{background:var(--gold);color:#181204;border-color:var(--gold)}
 .svc-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
 .svc{
   padding:30px 26px;border-radius:20px;background:var(--surface);border:1px solid var(--line-soft);
@@ -278,6 +282,7 @@ html[dir="rtl"] .contact-info h3{font-family:'Tajawal',sans-serif;font-weight:80
 }
 .field input:focus,.field textarea:focus{outline:none;border-color:var(--gold);box-shadow:0 0 0 3px rgba(212,175,55,.15)}
 .form-card .btn-gold{width:100%;justify-content:center;padding:14px}
+.form-error{margin-top:12px;color:#e07a6a;font-size:.88rem;line-height:1.7;text-align:center}
 
 /* ============ FOOTER ============ */
 footer{border-top:1px solid var(--line-soft);padding:34px 0;margin-top:40px}
