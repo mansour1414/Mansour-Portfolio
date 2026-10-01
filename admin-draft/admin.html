@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="robots" content="noindex,nofollow">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>لوحة التحكم | منصور</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Tajawal:wght@300;400;500;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --gold:#d4af37; --gold-2:#f5e08c; --gold-3:#8a6d1f;
+  --bg:#070605; --bg-2:#0d0b08; --surface:#14110c; --surface-2:#1c1810;
+  --line:rgba(212,175,55,.22); --line-soft:rgba(212,175,55,.12);
+  --text:#f3ead5; --muted:#a89e86; --muted-2:#6f6752;
+  --card-shadow:0 20px 60px rgba(0,0,0,.55); --glass:rgba(20,17,12,.78); --input:#0f0d09;
+  --green:#7bc98a; --red:#e07a6a; --blue:#7aa8e0;
+}
+html[data-theme="light"]{
+  --bg:#f7f2e6; --bg-2:#efe7d3; --surface:#fffdf6; --surface-2:#f5edd8;
+  --line:rgba(138,109,31,.30); --line-soft:rgba(138,109,31,.14);
+  --text:#241d0c; --muted:#6d6042; --muted-2:#9a8c68;
+  --card-shadow:0 20px 50px rgba(90,70,20,.14); --glass:rgba(255,253,246,.85); --input:#fbf7ea;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Tajawal','Inter',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;transition:background .5s,color .5s}
+html[lang="en"] body{font-family:'Inter','Tajawal',sans-serif}
+::-webkit-scrollbar{width:9px;height:9px}
+::-webkit-scrollbar-track{background:var(--bg)}
+::-webkit-scrollbar-thumb{background:linear-gradient(var(--gold-3),var(--gold));border-radius:8px}
+
+.layout{display:grid;grid-template-columns:250px 1fr;min-height:100vh}
+
+/* ===== SIDEBAR ===== */
+.sidebar{
+  position:sticky;top:0;height:100vh;padding:26px 18px;display:flex;flex-direction:column;gap:8px;
+  background:var(--surface);border-inline-end:1px solid var(--line-soft);
+}
+.logo{width:46px;height:46px;border-radius:50%;display:grid;place-items:center;font-family:'Cormorant Garamond',serif;font-weight:700;font-size:1.4rem;color:#141007;background:linear-gradient(135deg,var(--gold-2),var(--gold) 55%,var(--gold-3));box-shadow:0 0 0 1px var(--line),0 6px 18px rgba(212,175,55,.35);margin-bottom:22px}
+.side-link{
+  display:flex;align-items:center;gap:12px;padding:12px 14px;border-radius:12px;text-decoration:none;
+  color:var(--muted);font-size:.94rem;font-weight:500;transition:.25s;border:1px solid transparent;
+}
+.side-link svg{width:19px;height:19px;flex:0 0 auto}
+.side-link:hover{color:var(--gold-2);background:rgba(212,175,55,.06)}
+.side-link.active{color:var(--gold-2);background:rgba(212,175,55,.10);border-color:var(--line)}
+.side-foot{margin-top:auto;display:flex;flex-direction:column;gap:8px}
+.side-foot .side-link.danger:hover{color:var(--red);background:rgba(224,122,106,.08);border-color:rgba(224,122,106,.3)}
+.sb-pill{display:flex;align-items:center;justify-content:center;gap:8px}
+
+/* ===== MAIN ===== */
+.main{padding:26px 30px 60px;min-width:0}
+.topbar{display:flex;align-items:center;gap:14px;margin-bottom:28px;flex-wrap:wrap}
+.topbar h1{font-size:1.35rem;font-weight:800}
+.topbar h1 small{display:block;font-size:.8rem;color:var(--muted);font-weight:400;margin-top:3px}
+.search{flex:1;min-width:200px;display:flex;align-items:center;gap:10px;background:var(--surface);border:1px solid var(--line-soft);border-radius:12px;padding:10px 16px;max-width:420px}
+.search input{flex:1;background:none;border:none;outline:none;color:var(--text);font-family:inherit;font-size:.9rem}
+.search input::placeholder{color:var(--muted-2)}
+.top-actions{display:flex;align-items:center;gap:10px;margin-inline-start:auto}
+.pill{cursor:pointer;border:1px solid var(--line);background:transparent;color:var(--muted);border-radius:30px;padding:8px 14px;font-size:.82rem;font-weight:700;font-family:inherit;display:flex;align-items:center;gap:6px;transition:.3s}
+.pill:hover{color:var(--gold-2);border-color:var(--gold)}
+.icon-btn{cursor:pointer;width:40px;height:40px;border-radius:50%;border:1px solid var(--line);background:transparent;color:var(--gold);display:grid;place-items:center;transition:.3s}
+.icon-btn:hover{border-color:var(--gold);transform:rotate(20deg)}
+.avatar{width:42px;height:42px;border-radius:50%;display:grid;place-items:center;font-weight:800;color:#141007;background:linear-gradient(135deg,var(--gold-2),var(--gold) 60%,var(--gold-3))}
+.menu-btn{display:none}
+
+/* ===== CARDS ===== */
+.cards{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-bottom:26px}
+.card{background:var(--surface);border:1px solid var(--line-soft);border-radius:18px;padding:22px;box-shadow:var(--card-shadow);transition:.3s;position:relative;overflow:hidden}
+.card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--gold),transparent);opacity:0;transition:.3s}
+.card:hover{transform:translateY(-4px);border-color:var(--gold)}
+.card:hover::before{opacity:1}
+.card .c-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
+.card .ic{width:46px;height:46px;border-radius:13px;display:grid;place-items:center;background:linear-gradient(135deg,rgba(212,175,55,.2),rgba(212,175,55,.05));border:1px solid var(--line);color:var(--gold)}
+.card .trend{font-size:.75rem;font-weight:700;padding:4px 10px;border-radius:20px}
+.trend.up{color:var(--green);background:rgba(123,201,138,.12)}
+.trend.down{color:var(--red);background:rgba(224,122,106,.12)}
+.card .num{font-family:'Cormorant Garamond',serif;font-size:2rem;font-weight:700;color:var(--gold-2)}
+html[lang="ar"] .card .num{font-family:'Tajawal',sans-serif}
+.card .lbl{color:var(--muted);font-size:.85rem;margin-top:2px}
+
+.panel{background:var(--surface);border:1px solid var(--line-soft);border-radius:18px;padding:24px;box-shadow:var(--card-shadow)}
+.panel h3{font-size:1.02rem;margin-bottom:18px;display:flex;align-items:center;gap:10px}
+.panel h3::before{content:'';width:4px;height:18px;border-radius:4px;background:linear-gradient(var(--gold-2),var(--gold-3))}
+.grid-2{display:grid;grid-template-columns:1.4fr 1fr;gap:18px;margin-bottom:18px}
+
+/* chart */
+.bars{display:flex;align-items:flex-end;gap:14px;height:190px;padding-top:10px}
+.bar-wrap{flex:1;display:flex;flex-direction:column;align-items:center;gap:8px;height:100%;justify-content:flex-end}
+.bar{width:100%;max-width:42px;border-radius:8px 8px 4px 4px;background:linear-gradient(180deg,var(--gold-2),var(--gold) 60%,var(--gold-3));box-shadow:0 8px 20px rgba(212,175,55,.25);transition:height 1.2s cubic-bezier(.2,.7,.2,1);position:relative}
+.bar:hover{filter:brightness(1.15)}
+.bar .val{position:absolute;top:-24px;left:50%;transform:translateX(-50%);font-size:.72rem;font-weight:700;color:var(--gold-2);white-space:nowrap}
+.bar-lbl{color:var(--muted-2);font-size:.72rem;font-weight:600}
+
+/* table */
+table{width:100%;border-collapse:collapse}
+th{text-align:start;color:var(--muted-2);font-size:.75rem;font-weight:700;padding:10px 12px;border-bottom:1px solid var(--line-soft);letter-spacing:.03em}
+td{padding:13px 12px;border-bottom:1px solid var(--line-soft);font-size:.87rem;vertical-align:middle}
+tr:last-child td{border-bottom:none}
+tbody tr{transition:.2s}
+tbody tr:hover{background:rgba(212,175,55,.05)}
+.proj{display:flex;align-items:center;gap:11px;font-weight:600}
+.proj .p-ic{width:36px;height:36px;border-radius:10px;display:grid;place-items:center;background:rgba(212,175,55,.1);border:1px solid var(--line);color:var(--gold);flex:0 0 auto}
+.status{font-size:.72rem;font-weight:700;padding:4px 12px;border-radius:20px;display:inline-block}
+.st-done{color:var(--green);background:rgba(123,201,138,.12)}
+.st-prog{color:var(--gold-2);background:rgba(212,175,55,.14)}
+.st-wait{color:var(--blue);background:rgba(122,168,224,.12)}
+.row-act{display:flex;gap:6px}
+.mini-btn{cursor:pointer;width:30px;height:30px;border-radius:8px;border:1px solid var(--line-soft);background:transparent;color:var(--muted);display:grid;place-items:center;transition:.25s}
+.mini-btn:hover{color:var(--gold-2);border-color:var(--gold)}
+.mini-btn.del:hover{color:var(--red);border-color:var(--red)}
+
+/* messages */
+.msg{display:flex;gap:13px;padding:13px 4px;border-bottom:1px solid var(--line-soft)}
+.msg:last-child{border-bottom:none}
+.msg .m-av{width:40px;height:40px;border-radius:50%;flex:0 0 auto;display:grid;place-items:center;font-weight:800;font-size:.85rem;color:#141007;background:linear-gradient(135deg,var(--gold-2),var(--gold-3))}
+.msg h5{font-size:.88rem}
+.msg p{color:var(--muted);font-size:.79rem;margin-top:3px;line-height:1.6}
+.msg .time{margin-inline-start:auto;color:var(--muted-2);font-size:.7rem;white-space:nowrap}
+.badge{min-width:20px;height:20px;border-radius:10px;background:var(--gold);color:#181204;font-size:.68rem;font-weight:800;display:inline-grid;place-items:center;padding:0 6px}
+
+/* responsive */
+@media(max-width:1080px){
+  .cards{grid-template-columns:repeat(2,1fr)}
+  .grid-2{grid-template-columns:1fr}
+}
+@media(max-width:820px){
+  .layout{grid-template-columns:1fr}
+  .sidebar{position:fixed;inset-inline-start:0;top:0;bottom:0;width:250px;z-index:200;transform:translateX(100%);transition:transform .35s;box-shadow:0 0 60px rgba(0,0,0,.5)}
+  html[dir="ltr"] .sidebar{transform:translateX(-100%)}
+  .sidebar.open{transform:translateX(0)!important}
+  .menu-btn{display:grid}
+  .overlay{position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:150;opacity:0;pointer-events:none;transition:.3s}
+  .overlay.show{opacity:1;pointer-events:auto}
+  .main{padding:20px 16px 50px}
+}
+@media(max-width:560px){
+  .cards{grid-template-columns:1fr}
+  th:nth-child(4),td:nth-child(4){display:none}
+}
+</style>
+</head>
+<body>
+<div class="overlay" id="overlay"></div>
+<div class="layout">
+
+  <!-- ===== SIDEBAR ===== -->
+  <aside class="sidebar" id="sidebar">
+    <div class="logo">M</div>
+    <a class="side-link active" href="#dash"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><rect x="3" y="3" width="7" height="9" rx="1.5"/><rect x="14" y="3" width="7" height="5" rx="1.5"/><rect x="14" y="12" width="7" height="9" rx="1.5"/><rect x="3" y="16" width="7" height="5" rx="1.5"/></svg><span data-en="Dashboard" data-ar="لوحة التحكم">لوحة التحكم</span></a>
+    <a class="side-link" href="#projects"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7z"/></svg><span data-en="Projects" data-ar="المشاريع">المشاريع</span></a>
+    <a class="side-link" href="#messages"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg><span data-en="Messages" data-ar="الرسائل">الرسائل</span> <span class="badge">4</span></a>
+    <a class="side-link" href="#certs"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="9" r="6"/><path d="M8.5 14 7 22l5-3 5 3-1.5-8"/></svg><span data-en="Certificates" data-ar="الشهادات">الشهادات</span></a>
+    <a class="side-link" href="#settings"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="3"/><path d="M19 12a7 7 0 0 0-.1-1.2l2-1.5-2-3.4-2.3 1a7 7 0 0 0-2-1.2L14.2 3h-4l-.4 2.7a7 7 0 0 0-2 1.2l-2.3-1-2 3.4 2 1.5A7 7 0 0 0 5 12c0 .4 0 .8.1 1.2l-2 1.5 2 3.4 2.3-1a7 7 0 0 0 2 1.2l.4 2.7h4l.4-2.7a7 7 0 0 0 2-1.2l2.3 1 2-3.4-2-1.5c.1-.4.1-.8.1-1.2z"/></svg><span data-en="Settings" data-ar="الإعدادات">الإعدادات</span></a>
+    <div class="side-foot">
+      <a class="side-link" href="../public/index.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7S1 12 1 12z"/><circle cx="12" cy="12" r="3"/></svg><span data-en="View Website" data-ar="عرض الموقع">عرض الموقع</span></a>
+      <a class="side-link danger" href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4M16 17l5-5-5-5M21 12H9"/></svg><span data-en="Logout" data-ar="تسجيل الخروج">تسجيل الخروج</span></a>
+    </div>
+  </aside>
+
+  <!-- ===== MAIN ===== -->
+  <main class="main" id="dash">
+    <div class="topbar">
+      <button class="icon-btn menu-btn" id="menuBtn"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 6h18M3 12h18M3 18h18"/></svg></button>
+      <h1><span data-en="Welcome back, Mansour" data-ar="مرحبًا بعودتك، منصور">مرحبًا بعودتك، منصور</span><small data-en="Here's what's happening with your portfolio today" data-ar="إليك ما يحدث في موقعك اليوم">إليك ما يحدث في موقعك اليوم</small></h1>
+      <div class="search"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg><input data-en-ph="Search..." data-ar-ph="بحث..." placeholder="بحث..."></div>
+      <div class="top-actions">
+        <button class="pill" id="langBtn">🌐 <span id="langLabel">EN</span></button>
+        <button class="icon-btn" id="themeBtn">
+          <svg id="iconMoon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+          <svg id="iconSun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" style="display:none"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+        </button>
+        <div class="avatar">م</div>
+      </div>
+    </div>
+
+    <!-- stat cards -->
+    <div class="cards">
+      <div class="card"><div class="c-top"><div class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7S1 12 1 12z"/><circle cx="12" cy="12" r="3"/></svg></div><span class="trend up">+18%</span></div><div class="num" data-count="12840">0</div><div class="lbl" data-en="Total Visits" data-ar="إجمالي الزيارات">إجمالي الزيارات</div></div>
+      <div class="card"><div class="c-top"><div class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg></div><span class="trend up">+6</span></div><div class="num" data-count="23">0</div><div class="lbl" data-en="New Messages" data-ar="رسائل جديدة">رسائل جديدة</div></div>
+      <div class="card"><div class="c-top"><div class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7z"/></svg></div><span class="trend up">+2</span></div><div class="num" data-count="31">0</div><div class="lbl" data-en="Projects" data-ar="المشاريع">المشاريع</div></div>
+      <div class="card"><div class="c-top"><div class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="9" r="6"/><path d="M8.5 14 7 22l5-3 5 3-1.5-8"/></svg></div><span class="trend down">-1%</span></div><div class="num" data-count="10">0</div><div class="lbl" data-en="Certificates" data-ar="الشهادات">الشهادات</div></div>
+    </div>
+
+    <!-- chart + messages -->
+    <div class="grid-2" id="projects">
+      <div class="panel">
+        <h3 data-en="Weekly Visits" data-ar="الزيارات الأسبوعية">الزيارات الأسبوعية</h3>
+        <div class="bars" id="chart"></div>
+      </div>
+      <div class="panel" id="messages">
+        <h3 data-en="Latest Messages" data-ar="أحدث الرسائل">أحدث الرسائل</h3>
+        <div class="msg"><div class="m-av">س</div><div><h5 data-en="Sara Ahmed" data-ar="سارة أحمد">سارة أحمد</h5><p data-en="I want to build an online store for my brand..." data-ar="أريد بناء متجر إلكتروني لعلامتي التجارية...">أريد بناء متجر إلكتروني لعلامتي التجارية...</p></div><span class="time" data-en="5m" data-ar="قبل 5 د">قبل 5 د</span></div>
+        <div class="msg"><div class="m-av">خ</div><div><h5 data-en="Khalid M." data-ar="خالد م.">خالد م.</h5><p data-en="Can you redesign our company website?" data-ar="هل يمكنك إعادة تصميم موقع شركتنا؟">هل يمكنك إعادة تصميم موقع شركتنا؟</p></div><span class="time" data-en="1h" data-ar="قبل ساعة">قبل ساعة</span></div>
+        <div class="msg"><div class="m-av">ن</div><div><h5 data-en="Noura S." data-ar="نورة س.">نورة س.</h5><p data-en="Interested in SEO optimization service." data-ar="مهتمة بخدمة تحسين محركات البحث.">مهتمة بخدمة تحسين محركات البحث.</p></div><span class="time" data-en="3h" data-ar="قبل 3 س">قبل 3 س</span></div>
+        <div class="msg"><div class="m-av">ف</div><div><h5 data-en="Fahad A." data-ar="فهد أ.">فهد أ.</h5><p data-en="Quote for a portfolio website please." data-ar="أحتاج عرض سعر لموقع شخصي.">أحتاج عرض سعر لموقع شخصي.</p></div><span class="time" data-en="1d" data-ar="أمس">أمس</span></div>
+      </div>
+    </div>
+
+    <!-- projects table -->
+    <div class="panel" id="certs">
+      <h3 data-en="Projects Management" data-ar="إدارة المشاريع">إدارة المشاريع</h3>
+      <div style="overflow-x:auto">
+      <table>
+        <thead><tr>
+          <th data-en="Project" data-ar="المشروع">المشروع</th>
+          <th data-en="Client" data-ar="العميل">العميل</th>
+          <th data-en="Status" data-ar="الحالة">الحالة</th>
+          <th data-en="Date" data-ar="التاريخ">التاريخ</th>
+          <th data-en="Actions" data-ar="إجراءات">إجراءات</th>
+        </tr></thead>
+        <tbody id="projBody">
+          <tr><td><div class="proj"><div class="p-ic">📊</div>FinTrack Dashboard</div></td><td data-en="Apex Finance" data-ar="أبيكس المالية">أبيكس المالية</td><td><span class="status st-done" data-en="Completed" data-ar="مكتمل">مكتمل</span></td><td>Sep 2026</td><td><div class="row-act"><button class="mini-btn">✎</button><button class="mini-btn del" onclick="this.closest('tr').remove()">🗑</button></div></td></tr>
+          <tr><td><div class="proj"><div class="p-ic">🛒</div>Aurum Store</div></td><td data-en="Aurum Co." data-ar="شركة Aurum">شركة Aurum</td><td><span class="status st-prog" data-en="In Progress" data-ar="قيد التنفيذ">قيد التنفيذ</span></td><td>Aug 2026</td><td><div class="row-act"><button class="mini-btn">✎</button><button class="mini-btn del" onclick="this.closest('tr').remove()">🗑</button></div></td></tr>
+          <tr><td><div class="proj"><div class="p-ic">📋</div>TaskFlow SaaS</div></td><td data-en="Flow Team" data-ar="فريق Flow">فريق Flow</td><td><span class="status st-done" data-en="Completed" data-ar="مكتمل">مكتمل</span></td><td>Jul 2026</td><td><div class="row-act"><button class="mini-btn">✎</button><button class="mini-btn del" onclick="this.closest('tr').remove()">🗑</button></div></td></tr>
+          <tr><td><div class="proj"><div class="p-ic">✨</div>Lumen Identity</div></td><td data-en="Lumen Studio" data-ar="استوديو Lumen">استوديو Lumen</td><td><span class="status st-wait" data-en="Pending" data-ar="بانتظار">بانتظار</span></td><td>Sep 2026</td><td><div class="row-act"><button class="mini-btn">✎</button><button class="mini-btn del" onclick="this.closest('tr').remove()">🗑</button></div></td></tr>
+          <tr><td><div class="proj"><div class="p-ic">🚀</div>Sahm Platform</div></td><td data-en="Sahm Art" data-ar="فنون Sahm">فنون Sahm</td><td><span class="status st-prog" data-en="In Progress" data-ar="قيد التنفيذ">قيد التنفيذ</span></td><td>Oct 2026</td><td><div class="row-act"><button class="mini-btn">✎</button><button class="mini-btn del" onclick="this.closest('tr').remove()">🗑</button></div></td></tr>
+        </tbody>
+      </table>
+      </div>
+    </div>
+  </main>
+</div>
+
+<script>
+/* theme + lang share localStorage keys with the main site */
+let theme = localStorage.getItem('mansour-theme') || 'dark';
+let lang  = localStorage.getItem('mansour-lang')  || 'ar';
+function applyTheme(t){ theme=t; document.documentElement.dataset.theme=t;
+  document.getElementById('iconMoon').style.display = t==='dark'?'block':'none';
+  document.getElementById('iconSun').style.display  = t==='dark'?'none':'block';
+  localStorage.setItem('mansour-theme',t); }
+function applyLang(l){ lang=l; document.documentElement.lang=l; document.documentElement.dir = l==='ar'?'rtl':'ltr';
+  document.querySelectorAll('[data-en]').forEach(el=>{ const t=el.dataset[l]; if(t!==undefined) el.innerHTML=t; });
+  document.querySelectorAll('[data-en-ph]').forEach(el=>{ el.placeholder = l==='ar'? el.dataset.arPh : el.dataset.enPh; });
+  document.getElementById('langLabel').textContent = l==='ar'?'EN':'ع';
+  localStorage.setItem('mansour-lang',l); buildChart(); }
+document.getElementById('themeBtn').onclick = ()=> applyTheme(theme==='dark'?'light':'dark');
+document.getElementById('langBtn').onclick  = ()=> applyLang(lang==='ar'?'en':'ar');
+
+/* sidebar mobile */
+const sb=document.getElementById('sidebar'), ov=document.getElementById('overlay');
+document.getElementById('menuBtn').onclick=()=>{ sb.classList.add('open'); ov.classList.add('show'); };
+ov.onclick=()=>{ sb.classList.remove('open'); ov.classList.remove('show'); };
+document.querySelectorAll('.side-link').forEach(a=>a.addEventListener('click',()=>{ document.querySelectorAll('.side-link').forEach(x=>x.classList.remove('active')); a.classList.add('active'); ov.onclick(); }));
+
+/* counters */
+document.querySelectorAll('[data-count]').forEach(el=>{
+  const target=+el.dataset.count; let cur=0; const step=target/60;
+  const tick=()=>{ cur+=step; if(cur<target){ el.textContent=Math.floor(cur).toLocaleString('en-US'); requestAnimationFrame(tick);} else el.textContent=target.toLocaleString('en-US'); };
+  setTimeout(tick,300);
+});
+
+/* chart */
+function buildChart(){
+  const data = lang==='ar'
+    ? [['سبت',420],['أحد',760],['اثنين',580],['ثلاثاء',940],['أربعاء',700],['خميس',1120],['جمعة',860]]
+    : [['Sat',420],['Sun',760],['Mon',580],['Tue',940],['Wed',700],['Thu',1120],['Fri',860]];
+  const max=Math.max(...data.map(d=>d[1]));
+  document.getElementById('chart').innerHTML = data.map(([l,v])=>
+    `<div class="bar-wrap"><div class="bar" data-h="${Math.round(v/max*100)}" style="height:0%"><span class="val">${v}</span></div><span class="bar-lbl">${l}</span></div>`).join('');
+  requestAnimationFrame(()=>setTimeout(()=>document.querySelectorAll('.bar').forEach(b=>b.style.height=b.dataset.h+'%'),60));
+}
+
+applyTheme(theme); applyLang(lang);
+</script>
+</body>
+</html>
