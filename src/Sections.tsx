@@ -35,7 +35,9 @@ export function Hero() {
               <defs><path id="circ" d="M100,100 m-88,0 a88,88 0 1,1 176,0 a88,88 0 1,1 -176,0" /></defs>
               <text><textPath href="#circ">{t(site.ring)}</textPath></text>
             </svg>
-            <span className="mono">{t(site.monogram)}</span>
+            {site.photo
+              ? <img className="photo" src={site.photo} alt={t(site.name)} width={250} height={250} decoding="async" fetchPriority="high" />
+              : <span className="mono">{t(site.monogram)}</span>}
           </div>
         </div>
         <div className="stats">

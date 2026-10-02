@@ -64,7 +64,7 @@ export function Footer() {
       <div className="container foot">
         <a href="#home" className="logo" aria-label="Home">M</a>
         <div className="links">{nav.map((n) => <a key={n.id} href={`#${n.id}`}>{t(n.label)}</a>)}</div>
-        <div className="copy">© {new Date().getFullYear()} {t(site.name)}. {t(ui.rights)}</div>
+        <div className="copy">© {new Date().getFullYear()} {t(site.name)}. {t(ui.rights)} · <a className="admin-link" href="/#/admin">{t(ui.admin)}</a></div>
       </div>
     </footer>
   );

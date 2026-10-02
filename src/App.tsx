@@ -1,4 +1,4 @@
-import { lazy, Suspense, useEffect } from 'react';
+import { lazy, Suspense, useEffect, useState } from 'react';
 import { Contact } from './Contact';
 import { site } from './data';
 import { Footer, Nav, ToTop } from './Layout';
@@ -7,7 +7,9 @@ import { AppProvider, useApp } from './store';
 
 // Admin page is a separate chunk: visitors of the public site never download it.
 const Admin = lazy(() => import('./admin/Admin'));
-const isAdminRoute = () => window.location.pathname.replace(/\/+$/, '') === '/admin';
+// Works at /admin (needs the Vercel rewrite) and at /#/admin (works everywhere, used by the footer link).
+const isAdminRoute = () =>
+  window.location.pathname.replace(/\/+$/, '') === '/admin' || window.location.hash.startsWith('#/admin');
 
 function Page() {
   const { t } = useApp();
@@ -33,9 +35,15 @@ function Page() {
 }
 
 export default function App() {
+  const [admin, setAdmin] = useState(isAdminRoute);
+  useEffect(() => {
+    const on = () => setAdmin(isAdminRoute());
+    window.addEventListener('hashchange', on);
+    return () => window.removeEventListener('hashchange', on);
+  }, []);
   return (
     <AppProvider>
-      {isAdminRoute() ? <Suspense fallback={null}><Admin /></Suspense> : <Page />}
+      {admin ? <Suspense fallback={null}><Admin /></Suspense> : <Page />}
     </AppProvider>
   );
 }

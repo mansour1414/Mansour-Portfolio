@@ -6,60 +6,73 @@ import { useApp } from './store';
 const SB_URL = import.meta.env.VITE_SUPABASE_URL as string | undefined;
 const SB_KEY = import.meta.env.VITE_SUPABASE_ANON_KEY as string | undefined;
 
-type Status = 'idle' | 'sending' | 'sent' | 'wa';
+type Channel = 'email' | 'wa';
+type Result = Channel | 'partial' | null;
 const empty = { name: '', email: '', subject: '', message: '', website: '' };
+const PREFILL_MAX = 800; // very long text can exceed mailto/wa.me URL limits; the full message is always saved in the dashboard
 
 export function Contact() {
   const { t, lang } = useApp();
   const [f, setF] = useState(empty);
-  const [status, setStatus] = useState<Status>('idle');
-  const [err, setErr] = useState(false); // persistent error text under the form (cleared on next submit)
+  const [sending, setSending] = useState(false);
+  const [result, setResult] = useState<Result>(null);
   const c = ui.contact;
 
   const on = (k: keyof typeof empty) => (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
     setF((p) => ({ ...p, [k]: e.target.value }));
-  const finish = (s: Status, reset: boolean) => {
-    setStatus(s);
-    setTimeout(() => { setStatus('idle'); if (reset) setF(empty); }, 2500);
+
+  // Saves a copy in the admin dashboard (Supabase). Returns false when not configured or on failure.
+  const save = async (d: { name: string; email: string; subject: string; message: string }): Promise<boolean> => {
+    if (!SB_URL || !SB_KEY) return false;
+    try {
+      const r = await fetch(`${SB_URL}/rest/v1/messages`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json', apikey: SB_KEY, Prefer: 'return=minimal',
+          // Legacy anon keys are JWTs (send as Bearer); new sb_publishable_ keys are not, so only the apikey header is sent.
+          ...(SB_KEY.startsWith('eyJ') ? { Authorization: `Bearer ${SB_KEY}` } : {}),
+        },
+        body: JSON.stringify({ ...d, subject: d.subject || null, lang }),
+      });
+      if (!r.ok) throw new Error(`HTTP ${r.status}`);
+      return true;
+    } catch (err) {
+      console.error('Supabase insert failed:', err);
+      return false;
+    }
   };
 
-  const submit = async (e: FormEvent) => {
+  const submit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (status !== 'idle') return;
-    setErr(false);
-    if (f.website) { finish('sent', true); return; } // honeypot: only bots fill it
-    const d = { name: f.name.trim(), email: f.email.trim(), subject: f.subject.trim(), message: f.message.trim() };
+    if (sending) return;
+    if (f.website) { setF(empty); setResult('email'); return; } // honeypot: only bots fill it
 
-    if (SB_URL && SB_KEY) {
-      setStatus('sending');
-      try {
-        const r = await fetch(`${SB_URL}/rest/v1/messages`, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json', apikey: SB_KEY, Prefer: 'return=minimal',
-            // Legacy anon keys are JWTs (send as Bearer); new sb_publishable_ keys are not, so only the apikey header is sent.
-            ...(SB_KEY.startsWith('eyJ') ? { Authorization: `Bearer ${SB_KEY}` } : {}),
-          },
-          body: JSON.stringify({ ...d, subject: d.subject || null, lang }),
-        });
-        if (!r.ok) throw new Error(`HTTP ${r.status}`);
-        finish('sent', true);
-      } catch (error) {
-        console.error('Supabase insert failed:', error);
-        setStatus('idle');
-        setErr(true);
-      }
-      return;
-    }
-    // No Supabase configured: open WhatsApp (no await before window.open, so popup blockers allow it).
+    // Which button was pressed (email / WhatsApp)
+    const sub = (e.nativeEvent as SubmitEvent).submitter as HTMLButtonElement | null;
+    const channel: Channel = sub?.value === 'wa' ? 'wa' : 'email';
+
+    const d = { name: f.name.trim(), email: f.email.trim(), subject: f.subject.trim(), message: f.message.trim() };
     const lines = [t(c.waName) + d.name, t(c.waEmail) + d.email];
     if (d.subject) lines.push(t(c.waSubject) + d.subject);
-    lines.push('', d.message);
-    window.open(`https://wa.me/${site.whatsapp}?text=${encodeURIComponent(lines.join('\n'))}`, '_blank', 'noopener');
-    finish('wa', true);
+    lines.push('', d.message.length > PREFILL_MAX ? `${d.message.slice(0, PREFILL_MAX)}…` : d.message);
+    const body = lines.join('\n');
+
+    setSending(true);
+    setResult(null);
+    const saving = save(d); // start saving the dashboard copy first, but do not wait for it:
+    // the chosen app opens right away, inside the click, so popup blockers allow it.
+    if (channel === 'wa') {
+      window.open(`https://wa.me/${site.whatsapp}?text=${encodeURIComponent(body)}`, '_blank', 'noopener');
+    } else {
+      window.location.href = `mailto:${site.email}?subject=${encodeURIComponent(d.subject || t(c.mailSubject))}&body=${encodeURIComponent(body)}`;
+    }
+    const saved = await saving;
+    setSending(false);
+    setResult(saved ? channel : 'partial');
+    if (saved) setF(empty);
   };
 
-  const label = { idle: c.send, sending: c.sending, sent: c.sent, wa: c.waOpened }[status];
+  const resultText = result === 'email' ? c.doneEmail : result === 'wa' ? c.doneWa : result === 'partial' ? c.partial : null;
 
   return (
     <section id="contact"><div className="container">
@@ -85,8 +98,12 @@ export function Contact() {
           <div className="field"><input type="text" maxLength={150} value={f.subject} onChange={on('subject')} placeholder={t(c.subject)} aria-label={t(c.subject)} /></div>
           <div className="field"><textarea rows={5} maxLength={2000} required value={f.message} onChange={on('message')} placeholder={t(c.message)} aria-label={t(c.message)} /></div>
           <div className="hp" aria-hidden="true"><input type="text" tabIndex={-1} autoComplete="off" value={f.website} onChange={on('website')} /></div>
-          <button type="submit" className="btn-gold" disabled={status === 'sending'}>{t(label)} {status === 'idle' && '✈'}</button>
-          {err && <p className="form-error" role="alert">{t(c.error)}</p>}
+          <p className="form-hint">{t(c.chooseHint)}</p>
+          <div className="form-actions">
+            <button type="submit" value="email" className="btn-gold" disabled={sending}>✉️ {t(sending ? c.sending : c.viaEmail)}</button>
+            <button type="submit" value="wa" className="btn-ghost" disabled={sending}>💬 {t(sending ? c.sending : c.viaWa)}</button>
+          </div>
+          {resultText && <p className={result === 'partial' ? 'form-error' : 'form-ok'} role="status">{t(resultText)}</p>}
         </form>
       </div>
     </div></section>

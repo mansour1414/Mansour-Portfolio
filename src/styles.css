@@ -289,6 +289,17 @@ html[dir="rtl"] .contact-info h3{font-family:'Tajawal',sans-serif;font-weight:80
 .form-error{margin-top:12px;color:#e07a6a;font-size:.88rem;line-height:1.7;text-align:center}
 html[data-theme="light"] .form-error{color:#b0402f}
 
+/* personal photo inside the golden ring */
+.portrait .photo{width:100%;height:100%;border-radius:50%;object-fit:cover;object-position:50% 30%;display:block}
+
+/* contact: choose email / WhatsApp */
+.form-hint{color:var(--muted);font-size:.85rem;margin:4px 0 12px}
+.form-actions{display:flex;gap:12px;flex-wrap:wrap}
+.form-actions .btn-gold,.form-actions .btn-ghost{flex:1 1 180px;width:auto;justify-content:center;padding:14px}
+.form-actions button:disabled{opacity:.6;cursor:not-allowed;transform:none}
+.form-ok{margin-top:12px;color:#7bc98a;font-size:.88rem;line-height:1.7;text-align:center}
+html[data-theme="light"] .form-ok{color:#2f7a43}
+
 /* ============ FOOTER ============ */
 footer{border-top:1px solid var(--line-soft);padding:34px 0;margin-top:40px}
 .foot{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}
@@ -297,6 +308,8 @@ footer{border-top:1px solid var(--line-soft);padding:34px 0;margin-top:40px}
 .foot a:hover{color:var(--gold-text)}
 .foot a.logo{color:#141007}
 .foot .copy{color:var(--muted-2);font-size:.82rem}
+.foot .admin-link{color:var(--muted-2);font-size:.82rem;text-decoration:underline;text-underline-offset:3px}
+.foot .admin-link:hover{color:var(--gold-text)}
 
 /* scroll top */
 .to-top{position:fixed;bottom:26px;inset-inline-end:26px;z-index:90;width:46px;height:46px;border-radius:50%;

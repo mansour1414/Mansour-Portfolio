@@ -11,11 +11,12 @@ export const site = {
     { ar: 'من السيرفر حتى الواجهة النهائية', en: 'From the server to the final interface' },
   ] as L[],
   ring: { ar: 'مطوّر Full-Stack • SaaS • ذكاء اصطناعي وأتمتة • ', en: 'FULL-STACK DEVELOPER • SAAS • AI & AUTOMATION • ' } as L,
-  monogram: { ar: 'م', en: 'M' } as L, // [ناقص] personal photo (optional)
+  monogram: { ar: 'م', en: 'M' } as L, // fallback when `photo` is empty
+  photo: '/profile.jpg', // file in /public
   heroStack: ['React', 'TypeScript', 'Node.js', 'Supabase', 'Tailwind', 'AI Agents'],
   email: 'MANSOURQASQOUS@gmail.com',
   whatsapp: '966563558064',
-  github: '', // [ناقص] e.g. https://github.com/USERNAME
+  github: 'https://github.com/mansour1414',
   linkedin: '', // [ناقص] e.g. https://www.linkedin.com/in/USERNAME
 };
 
@@ -119,6 +120,7 @@ export const ui = {
   },
   additional: { ar: 'إضافي', en: 'Additional' } as L,
   viewCert: { ar: 'عرض الشهادة', en: 'View certificate' } as L,
+  admin: { ar: 'الإدارة', en: 'Admin' } as L,
   stats: {
     projects: { ar: 'مشاريع مميزة', en: 'Featured Projects' } as L,
     services: { ar: 'خدمات', en: 'Services' } as L,
@@ -132,11 +134,14 @@ export const ui = {
     email: { ar: 'البريد الإلكتروني', en: 'Email' } as L,
     subject: { ar: 'الموضوع', en: 'Subject' } as L,
     message: { ar: 'الرسالة', en: 'Message' } as L,
-    send: { ar: 'إرسال الرسالة', en: 'Send Message' } as L,
+    chooseHint: { ar: 'اختر طريقة الإرسال (تصلني نسخة في لوحة الإدارة في الحالتين):', en: 'Choose how to send (a copy always reaches my dashboard):' } as L,
+    viaEmail: { ar: 'إرسال عبر الإيميل', en: 'Send via Email' } as L,
+    viaWa: { ar: 'إرسال عبر واتساب', en: 'Send via WhatsApp' } as L,
     sending: { ar: 'جارٍ الإرسال...', en: 'Sending...' } as L,
-    sent: { ar: '✓ تم الإرسال', en: '✓ Sent' } as L,
-    waOpened: { ar: '✓ فُتح واتساب', en: '✓ WhatsApp opened' } as L,
-    error: { ar: 'تعذّر الإرسال، حاول مجددًا أو راسلني عبر واتساب', en: 'Could not send. Try again or message me on WhatsApp' } as L,
+    doneEmail: { ar: '✓ تم حفظ رسالتك وفُتح تطبيق البريد لإكمال الإرسال.', en: '✓ Message saved and your email app opened to finish sending.' } as L,
+    doneWa: { ar: '✓ تم حفظ رسالتك وفُتح واتساب لإكمال الإرسال.', en: '✓ Message saved and WhatsApp opened to finish sending.' } as L,
+    partial: { ar: 'فُتح التطبيق لإرسال رسالتك، لكن تعذّر حفظ نسخة في لوحة الإدارة.', en: 'The app opened to send your message, but a copy could not be saved to the dashboard.' } as L,
+    mailSubject: { ar: 'رسالة من موقعك', en: 'Message from your website' } as L,
     waName: { ar: 'الاسم: ', en: 'Name: ' } as L,
     waEmail: { ar: 'البريد: ', en: 'Email: ' } as L,
     waSubject: { ar: 'الموضوع: ', en: 'Subject: ' } as L,

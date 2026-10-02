@@ -1,2 +1,4 @@
 User-agent: *
 Allow: /
+
+Sitemap: https://mansour-portfolio-fawn.vercel.app/sitemap.xml
