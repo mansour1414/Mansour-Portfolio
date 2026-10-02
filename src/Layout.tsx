@@ -22,6 +22,14 @@ export function Nav() {
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
+  // Escape closes the mobile menu.
+  useEffect(() => {
+    if (!open) return;
+    const onKey = (e: KeyboardEvent) => { if (e.key === 'Escape') setOpen(false); };
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  }, [open]);
+
   return (
     <>
       <nav>
@@ -32,12 +40,12 @@ export function Nav() {
           ))}
         </ul>
         <div className="nav-actions">
-          <button className="pill" onClick={toggleLang} title="Language">🌐 <span>{lang === 'ar' ? 'EN' : 'ع'}</span></button>
+          <button className="pill" onClick={toggleLang} title="Language" aria-label="Language">🌐 <span>{lang === 'ar' ? 'EN' : 'ع'}</span></button>
           <button className="icon-btn" onClick={toggleTheme} title="Theme" aria-label="Theme">
             <Svg size={18} sw={2}>{theme === 'dark' ? icons.moon : icons.sun}</Svg>
           </button>
           <a href="#contact" className="btn-gold nav-cta-desktop">{t(ui.letsTalk)}</a>
-          <button className="hamburger" onClick={() => setOpen(true)} aria-label="menu"><span /><span /><span /></button>
+          <button className="hamburger" onClick={() => setOpen(true)} aria-label="Menu" aria-expanded={open}><span /><span /><span /></button>
         </div>
       </nav>
       <div className={`mobile-menu${open ? ' open' : ''}`}>

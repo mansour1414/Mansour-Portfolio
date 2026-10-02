@@ -1,5 +1,7 @@
--- Run once in Supabase: SQL Editor > New query > paste > Run.
--- Contact-form messages: the public (anon) key can INSERT only; it can never read, update or delete.
+-- Run in Supabase: SQL Editor > New query > paste > Run. Safe to re-run.
+-- Contact-form messages:
+--   * anon (public key): INSERT only, can never read, update or delete.
+--   * authenticated admin (only the email below): read, mark read/unread, delete.
 create table if not exists public.messages (
   id         uuid primary key default gen_random_uuid(),
   created_at timestamptz not null default now(),
@@ -15,9 +17,26 @@ alter table public.messages enable row level security;
 
 revoke all on public.messages from anon, authenticated;
 grant insert on public.messages to anon;
+grant select, delete on public.messages to authenticated;
+grant update (is_read) on public.messages to authenticated;  -- only the read flag is editable
 
 drop policy if exists "anon can insert messages" on public.messages;
 create policy "anon can insert messages" on public.messages
   for insert to anon with check (true);
 
--- No SELECT policy on purpose: read messages from Table Editor (dashboard) only.
+-- Admin policies: change the email here if the admin account email changes.
+drop policy if exists "admin can read messages" on public.messages;
+create policy "admin can read messages" on public.messages
+  for select to authenticated
+  using (lower(auth.jwt() ->> 'email') = 'mansourqasqous@gmail.com');
+
+drop policy if exists "admin can update messages" on public.messages;
+create policy "admin can update messages" on public.messages
+  for update to authenticated
+  using (lower(auth.jwt() ->> 'email') = 'mansourqasqous@gmail.com')
+  with check (lower(auth.jwt() ->> 'email') = 'mansourqasqous@gmail.com');
+
+drop policy if exists "admin can delete messages" on public.messages;
+create policy "admin can delete messages" on public.messages
+  for delete to authenticated
+  using (lower(auth.jwt() ->> 'email') = 'mansourqasqous@gmail.com');

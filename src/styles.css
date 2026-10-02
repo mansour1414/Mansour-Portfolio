@@ -3,7 +3,7 @@
   --gold:#d4af37; --gold-2:#f5e08c; --gold-3:#8a6d1f;
   --bg:#070605; --bg-2:#0d0b08; --surface:#14110c; --surface-2:#1c1810;
   --line:rgba(212,175,55,.22); --line-soft:rgba(212,175,55,.12);
-  --text:#f3ead5; --muted:#a89e86; --muted-2:#6f6752;
+  --text:#f3ead5; --muted:#a89e86; --muted-2:#8a8168;
   --card-shadow:0 20px 60px rgba(0,0,0,.55);
   --glass:rgba(20,17,12,.72);
   --input:#0f0d09;
@@ -12,7 +12,7 @@
 html[data-theme="light"]{
   --bg:#f7f2e6; --bg-2:#efe7d3; --surface:#fffdf6; --surface-2:#f5edd8;
   --line:rgba(138,109,31,.30); --line-soft:rgba(138,109,31,.14);
-  --text:#241d0c; --muted:#6d6042; --muted-2:#9a8c68;
+  --text:#241d0c; --muted:#6d6042; --muted-2:#7a6c48;
   --card-shadow:0 20px 50px rgba(90,70,20,.14);
   --glass:rgba(255,253,246,.82);
   --input:#fbf7ea;
@@ -30,6 +30,8 @@ body{
 }
 html[lang="en"] body{font-family:'Inter','Tajawal',sans-serif}
 ::selection{background:var(--gold);color:#111}
+:focus-visible{outline:2px solid var(--gold-2);outline-offset:3px}
+html[data-theme="light"] :focus-visible{outline-color:var(--gold-3)}
 ::-webkit-scrollbar{width:10px}
 ::-webkit-scrollbar-track{background:var(--bg)}
 ::-webkit-scrollbar-thumb{background:linear-gradient(var(--gold-3),var(--gold));border-radius:8px}
@@ -63,7 +65,7 @@ nav{
 .logo{width:42px;height:42px;border-radius:50%;flex:0 0 auto;
   display:grid;place-items:center;font-family:'Cormorant Garamond',serif;font-weight:700;font-size:1.3rem;
   color:#141007;background:linear-gradient(135deg,var(--gold-2),var(--gold) 55%,var(--gold-3));
-  box-shadow:0 0 0 1px var(--line),0 6px 18px rgba(212,175,55,.35);}
+  box-shadow:0 0 0 1px var(--line),0 6px 18px rgba(212,175,55,.35);text-decoration:none}
 .nav-links{display:flex;gap:26px;list-style:none}
 .nav-links a{color:var(--muted);text-decoration:none;font-size:.92rem;font-weight:500;position:relative;padding:4px 0;transition:color .3s}
 .nav-links a:hover,.nav-links a.active{color:var(--gold-text)}
@@ -100,6 +102,7 @@ nav{
 .mobile-menu.open{opacity:1;visibility:visible;pointer-events:auto}
 .mobile-menu a{color:var(--text);text-decoration:none;font-size:1.5rem;font-weight:700}
 .mobile-menu a:hover{color:var(--gold)}
+.mobile-menu a.btn-gold{color:#181204;font-size:1rem}
 .mobile-close{position:absolute;top:24px;inset-inline-end:24px}
 
 /* ============ LAYOUT ============ */
@@ -166,16 +169,18 @@ html[dir="rtl"] .hero h1{font-family:'Tajawal',sans-serif;font-weight:800;letter
 html[dir="rtl"] .portrait .mono{font-family:'Tajawal',sans-serif}
 .portrait .ring-txt{position:absolute;inset:-56px;animation:spin 40s linear infinite;pointer-events:none}
 .portrait .ring-txt text{fill:var(--muted-2);font-size:9.5px;letter-spacing:3px;font-family:'Inter',sans-serif}
+/* Arabic letters must stay connected: no letter-spacing, Arabic font */
+html[dir="rtl"] .portrait .ring-txt text{letter-spacing:0;font-family:'Tajawal',sans-serif}
 
-/* stats */
+/* stats (hover uses the `translate` property so it composes with the floaty transform animation) */
 .stats{display:flex;flex-direction:column;gap:16px}
 .stat{
   display:flex;align-items:center;gap:18px;padding:18px 22px;border-radius:18px;
   background:var(--surface);border:1px solid var(--line-soft);box-shadow:var(--card-shadow);
-  transition:transform .35s,border-color .35s;
+  transition:translate .35s,border-color .35s;
 }
-.stat:hover{transform:translateX(-6px);border-color:var(--gold)}
-html[dir="ltr"] .stat:hover{transform:translateX(6px)}
+.stat:hover{translate:-6px 0;border-color:var(--gold)}
+html[dir="ltr"] .stat:hover{translate:6px 0}
 .stat .ic{width:52px;height:52px;border-radius:14px;flex:0 0 auto;display:grid;place-items:center;
   background:linear-gradient(135deg,rgba(212,175,55,.20),rgba(212,175,55,.05));border:1px solid var(--line);color:var(--gold)}
 .stat .num{font-family:'Cormorant Garamond',serif;font-size:1.9rem;font-weight:700;color:var(--gold-text);line-height:1}
@@ -259,7 +264,6 @@ html[dir="rtl"] .work:hover .go{transform:rotate(45deg)}
 .skill-card.wide{grid-column:1/-1}
 .skill-card h3{font-size:1.05rem;color:var(--gold-text);margin-bottom:14px}
 .skill-card .skills{margin-top:0}
-.cert.placeholder{border-style:dashed}
 .hp{position:absolute;inset-inline-start:-9999px;width:1px;height:1px;overflow:hidden;opacity:0}
 
 /* ============ CONTACT ============ */
@@ -283,6 +287,7 @@ html[dir="rtl"] .contact-info h3{font-family:'Tajawal',sans-serif;font-weight:80
 .field input:focus,.field textarea:focus{outline:none;border-color:var(--gold);box-shadow:0 0 0 3px rgba(212,175,55,.15)}
 .form-card .btn-gold{width:100%;justify-content:center;padding:14px}
 .form-error{margin-top:12px;color:#e07a6a;font-size:.88rem;line-height:1.7;text-align:center}
+html[data-theme="light"] .form-error{color:#b0402f}
 
 /* ============ FOOTER ============ */
 footer{border-top:1px solid var(--line-soft);padding:34px 0;margin-top:40px}
@@ -290,6 +295,7 @@ footer{border-top:1px solid var(--line-soft);padding:34px 0;margin-top:40px}
 .foot .links{display:flex;gap:22px;flex-wrap:wrap}
 .foot a{color:var(--muted);text-decoration:none;font-size:.88rem;transition:.3s}
 .foot a:hover{color:var(--gold-text)}
+.foot a.logo{color:#141007}
 .foot .copy{color:var(--muted-2);font-size:.82rem}
 
 /* scroll top */
@@ -320,7 +326,7 @@ footer{border-top:1px solid var(--line-soft);padding:34px 0;margin-top:40px}
   .works-grid,.svc-grid,.cert-grid,.skill-grid{grid-template-columns:1fr}
   .form-row{grid-template-columns:1fr}
   .stats{flex-direction:column}
-  .stat:hover{transform:none}
+  .stat:hover,html[dir="ltr"] .stat:hover{translate:none}
   .hero{padding-top:110px}
   .hero h1{font-size:clamp(2.1rem,10vw,3rem)}
   .orbit.o1{width:300px}.orbit.o2{width:235px}

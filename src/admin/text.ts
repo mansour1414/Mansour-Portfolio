@@ -1,0 +1,37 @@
+/* Admin page text (kept next to the admin code so data.ts stays about the public site). */
+import type { L } from '../data';
+
+export const at = {
+  title: { ar: 'لوحة التحكم | منصور', en: 'Dashboard | Mansour' } as L,
+  loginTitle: { ar: 'تسجيل دخول الإدارة', en: 'Admin sign in' } as L,
+  email: { ar: 'البريد الإلكتروني', en: 'Email' } as L,
+  password: { ar: 'كلمة المرور', en: 'Password' } as L,
+  signIn: { ar: 'دخول', en: 'Sign in' } as L,
+  signingIn: { ar: 'جارٍ الدخول...', en: 'Signing in...' } as L,
+  badCreds: { ar: 'البريد أو كلمة المرور غير صحيحة', en: 'Wrong email or password' } as L,
+  tooMany: { ar: 'محاولات كثيرة، انتظر قليلًا ثم أعد المحاولة', en: 'Too many attempts, wait a moment and try again' } as L,
+  network: { ar: 'تعذّر الاتصال، تحقق من الإنترنت وأعد المحاولة', en: 'Connection failed, check your internet and try again' } as L,
+  expired: { ar: 'انتهت الجلسة، سجّل الدخول من جديد', en: 'Session expired, please sign in again' } as L,
+  notConfigured: {
+    ar: 'Supabase غير مضبوط: أضف VITE_SUPABASE_URL وVITE_SUPABASE_ANON_KEY ثم أعد النشر.',
+    en: 'Supabase is not configured: add VITE_SUPABASE_URL and VITE_SUPABASE_ANON_KEY, then redeploy.',
+  } as L,
+  heading: { ar: 'الرسائل الواردة', en: 'Inbox' } as L,
+  total: { ar: 'إجمالي الرسائل', en: 'Total messages' } as L,
+  unread: { ar: 'غير مقروءة', en: 'Unread' } as L,
+  all: { ar: 'الكل', en: 'All' } as L,
+  refresh: { ar: 'تحديث', en: 'Refresh' } as L,
+  logout: { ar: 'تسجيل الخروج', en: 'Sign out' } as L,
+  site: { ar: 'عرض الموقع', en: 'View site' } as L,
+  loading: { ar: 'جارٍ التحميل...', en: 'Loading...' } as L,
+  loadErr: { ar: 'تعذّر تحميل الرسائل. تأكد من تشغيل schema.sql وإنشاء مستخدم الإدارة.', en: 'Could not load messages. Make sure schema.sql was run and the admin user exists.' } as L,
+  actErr: { ar: 'تعذّر تنفيذ العملية، حاول مجددًا', en: 'Action failed, please try again' } as L,
+  empty: { ar: 'لا توجد رسائل بعد', en: 'No messages yet' } as L,
+  emptyUnread: { ar: 'لا توجد رسائل غير مقروءة', en: 'No unread messages' } as L,
+  noSubject: { ar: '(بدون موضوع)', en: '(no subject)' } as L,
+  reply: { ar: 'رد بالبريد', en: 'Reply by email' } as L,
+  markRead: { ar: 'تعليم كمقروءة', en: 'Mark as read' } as L,
+  markUnread: { ar: 'تعليم كغير مقروءة', en: 'Mark as unread' } as L,
+  del: { ar: 'حذف', en: 'Delete' } as L,
+  confirmDel: { ar: 'حذف هذه الرسالة نهائيًا؟', en: 'Delete this message permanently?' } as L,
+};

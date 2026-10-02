@@ -1,9 +1,13 @@
-import { useEffect } from 'react';
+import { lazy, Suspense, useEffect } from 'react';
 import { Contact } from './Contact';
 import { site } from './data';
 import { Footer, Nav, ToTop } from './Layout';
 import { About, Certificates, Hero, Services, Skills, Works } from './Sections';
 import { AppProvider, useApp } from './store';
+
+// Admin page is a separate chunk: visitors of the public site never download it.
+const Admin = lazy(() => import('./admin/Admin'));
+const isAdminRoute = () => window.location.pathname.replace(/\/+$/, '') === '/admin';
 
 function Page() {
   const { t } = useApp();
@@ -29,5 +33,9 @@ function Page() {
 }
 
 export default function App() {
-  return <AppProvider><Page /></AppProvider>;
+  return (
+    <AppProvider>
+      {isAdminRoute() ? <Suspense fallback={null}><Admin /></Suspense> : <Page />}
+    </AppProvider>
+  );
 }
