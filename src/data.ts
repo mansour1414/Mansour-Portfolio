@@ -7,13 +7,13 @@ export const site = {
   title: { ar: 'منصور قصقوص | مطوّر Full-Stack', en: 'Mansour Qasqous | Full-Stack Developer' } as L,
   role: { ar: 'مطوّر Full-Stack', en: 'Full-Stack Developer' } as L,
   tagline: [
-    { ar: 'أبني تطبيقات ويب ومنصات SaaS مدعومة بالذكاء الاصطناعي', en: 'Building web apps and SaaS platforms, powered by AI' },
-    { ar: 'من السيرفر حتى الواجهة النهائية', en: 'From the server to the final interface' },
+    { ar: 'أحوّل الأفكار إلى منتجات رقمية عملية وسريعة وقابلة للتوسع', en: 'I turn ideas into practical, fast, and scalable digital products' },
+    { ar: 'من التخطيط والبنية التقنية إلى تجربة المستخدم والإطلاق', en: 'From technical planning and architecture to user experience and launch' },
   ] as L[],
-  ring: { ar: 'مطوّر Full-Stack • SaaS • ذكاء اصطناعي وأتمتة • ', en: 'FULL-STACK DEVELOPER • SAAS • AI & AUTOMATION • ' } as L,
+  ring: { ar: 'FULL-STACK • WEB • SAAS • AUTOMATION • ', en: 'FULL-STACK • WEB • SAAS • AUTOMATION • ' } as L,
   monogram: { ar: 'م', en: 'M' } as L, // fallback when `photo` is empty
   photo: '/profile.jpg', // file in /public
-  heroStack: ['React', 'TypeScript', 'Node.js', 'Supabase', 'Tailwind', 'AI Agents'],
+  heroStack: ['React', 'TypeScript', 'Node.js', 'Supabase', 'Vite', 'Automation'],
   email: 'MANSOURQASQOUS@gmail.com',
   whatsapp: '966563558064',
   github: 'https://github.com/mansour1414',
@@ -22,55 +22,109 @@ export const site = {
 
 export const nav: { id: string; label: L }[] = [
   { id: 'home', label: { ar: 'الرئيسية', en: 'Home' } },
-  { id: 'about', label: { ar: 'عنّي', en: 'About' } },
-  { id: 'skills', label: { ar: 'مهاراتي', en: 'Skills' } },
-  { id: 'work', label: { ar: 'أعمالي', en: 'Work' } },
-  { id: 'services', label: { ar: 'خدماتي', en: 'Services' } },
-  { id: 'certificates', label: { ar: 'شهاداتي', en: 'Certificates' } },
-  { id: 'contact', label: { ar: 'تواصل', en: 'Contact' } },
+  { id: 'about', label: { ar: 'نبذة عني', en: 'About' } },
+  { id: 'skills', label: { ar: 'المهارات', en: 'Skills' } },
+  { id: 'work', label: { ar: 'المشاريع', en: 'Projects' } },
+  { id: 'services', label: { ar: 'الخدمات', en: 'Services' } },
+  { id: 'certificates', label: { ar: 'الشهادات', en: 'Certificates' } },
+  { id: 'contact', label: { ar: 'تواصل معي', en: 'Contact' } },
 ];
 
 export const about = {
   p1: {
-    ar: ['أنا ', 'منصور قصقوص', '، مطوّر Full-Stack من القطيف في المنطقة الشرقية بالمملكة العربية السعودية. أبني منصات ويب ومنتجات SaaS متكاملة من السيرفر حتى الواجهة النهائية، وأدمج الذكاء الاصطناعي والأتمتة (AI Agents وn8n) فيها.'],
-    en: ["I'm ", 'Mansour Qasqous', ', a Full-Stack developer from Qatif, Eastern Province, Saudi Arabia. I build complete web platforms and SaaS products from the server to the final interface, and integrate AI and automation (AI Agents, n8n) into them.'],
+    ar: ['أنا ', 'منصور قصقوص', '، مطوّر Full-Stack من المنطقة الشرقية في المملكة العربية السعودية. أعمل على بناء مواقع وتطبيقات ويب ومنصات رقمية متكاملة، مع اهتمام خاص بجودة الواجهة، تنظيم البنية التقنية، الأداء، وسهولة الاستخدام.'],
+    en: ["I'm ", 'Mansour Qasqous', ', a Full-Stack developer based in the Eastern Province of Saudi Arabia. I build complete websites, web applications, and digital platforms with a strong focus on interface quality, clean architecture, performance, and usability.'],
   } as Record<'ar' | 'en', [string, string, string]>,
-  p2: { ar: 'ومن مهاراتي الإضافية تحليل وتداول الأسواق المالية (الأسهم السعودية والأمريكية).', en: 'An additional skill of mine is financial market analysis and trading (Saudi and US stocks).' } as L,
+  p2: {
+    ar: 'أستخدم الأتمتة وأدوات الذكاء الاصطناعي عندما تضيف قيمة حقيقية للمشروع، وأهتم بتحويل المتطلبات إلى حلول واضحة قابلة للتطوير والصيانة.',
+    en: 'I use automation and AI tools when they add real value to a project, with a focus on turning requirements into clear, maintainable, and scalable solutions.',
+  } as L,
   info: [
-    { k: { ar: 'الموقع', en: 'Location' }, h: { ar: 'القطيف، المنطقة الشرقية', en: 'Qatif, Eastern Province' }, p: { ar: 'المملكة العربية السعودية', en: 'Saudi Arabia' } },
-    { k: { ar: 'التخصص', en: 'Focus' }, h: same('Full-Stack'), p: same('React · TypeScript · Node.js · Supabase') },
-    { k: same('AI'), h: same('AI Agents & Automation'), p: same('Prompt Engineering · n8n · DeepSeek') },
+    { k: { ar: 'الموقع', en: 'Location' }, h: { ar: 'المنطقة الشرقية', en: 'Eastern Province' }, p: { ar: 'المملكة العربية السعودية', en: 'Saudi Arabia' } },
+    { k: { ar: 'التخصص', en: 'Focus' }, h: same('Full-Stack Development'), p: same('React · TypeScript · Node.js · Supabase') },
+    { k: { ar: 'مجالات إضافية', en: 'Additional Focus' }, h: { ar: 'الأتمتة والذكاء الاصطناعي', en: 'Automation & AI' }, p: same('AI Agents · n8n · API Integrations') },
   ] as { k: L; h: L; p: L }[],
 };
 
 export const skills = [
-  { title: 'Frontend & Mobile', items: ['React', 'TypeScript', 'Tailwind CSS', 'React Native', 'Flutter'] },
-  { title: 'Backend & Database', items: ['Node.js', 'Express', 'Supabase', 'PostgreSQL'] },
-  { title: 'Tools & Deployment', items: ['VS Code', 'Git', 'GitHub', 'Vercel', 'Google AI Studio'] },
-  { title: 'AI & Automation', items: ['AI Agents', 'Prompt Engineering', 'n8n', 'Hermes', 'DeepSeek'] },
+  { title: 'Frontend', items: ['React', 'TypeScript', 'HTML', 'CSS', 'Tailwind CSS'] },
+  { title: 'Backend & Database', items: ['Node.js', 'Supabase', 'PostgreSQL', 'REST APIs'] },
+  { title: 'Tools & Deployment', items: ['Vite', 'Git', 'GitHub', 'Vercel', 'VS Code'] },
+  { title: 'AI & Automation', items: ['AI Agents', 'Prompt Engineering', 'n8n', 'API Integrations'] },
 ];
-export const skillsExtra: L = { ar: 'تحليل وتداول الأسواق المالية (الأسهم السعودية والأمريكية)', en: 'Financial markets analysis & trading (Saudi and US stocks)' };
+export const skillsExtra: L = {
+  ar: 'تحليل الأسواق المالية ومتابعة الأسهم السعودية والأمريكية',
+  en: 'Financial market analysis and tracking Saudi and US equities',
+};
 
 export const projects: { name: string; icon: string; desc: L; tech: string[]; url?: string }[] = [
   {
     name: 'EasyPDF', icon: 'doc', tech: ['React', 'TypeScript', 'Node.js', 'Supabase', 'Tailwind CSS'],
-    desc: { ar: 'منصة وتطبيق ويب متكامل لتعديل وإدارة الملفات والمستندات.', en: 'An integrated web platform and app for editing and managing files and documents.' },
+    desc: {
+      ar: 'تطبيق ويب لتبسيط التعامل مع ملفات PDF والصور من خلال أدوات واضحة وسريعة لإدارة المستندات وتنفيذ المهام اليومية بكفاءة.',
+      en: 'A web application that simplifies working with PDFs and images through clear, fast tools for document management and everyday file tasks.',
+    },
     url: '', // [ناقص] project link
   },
   {
-    name: 'Yugen Forge', icon: 'sparkle', tech: ['React', 'Node.js', 'Supabase', 'AI APIs'],
-    desc: { ar: 'منصة SaaS تفاعلية لتوليد وتطوير المحتوى والأدوات المدعومة بالذكاء الاصطناعي.', en: 'An interactive SaaS platform for generating and developing content and AI-powered tools.' },
+    name: 'Yugen Forge', icon: 'sparkle', tech: ['React', 'TypeScript', 'Node.js', 'Supabase'],
+    desc: {
+      ar: 'موقع وهوية رقمية لشركة تقنية تقدم تطوير المواقع والأنظمة والمنتجات الرقمية، وتصميم UI/UX، والتحسين والاستشارات التقنية.',
+      en: 'A digital presence for a technology company providing web and software development, digital products, UI/UX design, optimization, and technical consulting.',
+    },
     url: '', // [ناقص] project link
   },
 ];
 
 export const services: { icon: string; title: L; desc: L }[] = [
-  { icon: 'code', title: { ar: 'تطوير تطبيقات الويب وSaaS', en: 'Web & SaaS App Development' }, desc: { ar: 'بناء منصات كاملة من السيرفر حتى الواجهة النهائية بأحدث التقنيات.', en: 'Building complete platforms from the server to the final interface using modern technologies.' } },
-  { icon: 'phone', title: { ar: 'تطوير وتحسين تطبيقات الهاتف', en: 'Mobile App Development & Improvement' }, desc: { ar: 'تطوير وتحسين تطبيقات الهاتف.', en: 'Developing and improving mobile applications.' } },
-  { icon: 'gear', title: { ar: 'أتمتة العمليات والذكاء الاصطناعي', en: 'Process Automation & AI' }, desc: { ar: 'بناء وتطوير AI Agents وسلاسل أتمتة مهام ذكية.', en: 'Building and developing AI Agents and smart task-automation workflows.' } },
-  { icon: 'palette', title: { ar: 'تصميم وبناء واجهات حديثة', en: 'Modern Interface Design & Build' }, desc: { ar: 'واجهات سريعة ومتجاوبة.', en: 'Fast, responsive interfaces.' } },
-  { icon: 'chart', title: { ar: 'تحسين محركات البحث (SEO)', en: 'Search Engine Optimization (SEO)' }, desc: { ar: 'تحسين ظهور موقعك في محركات البحث.', en: 'Improving how your website performs in search engines.' } },
-  { icon: 'pen', title: { ar: 'الجرافيك والديزاين', en: 'Graphics & Design' }, desc: { ar: 'تصميم جرافيكي وديزاين لمشاريعك.', en: 'Graphic design and visuals for your projects.' } },
+  {
+    icon: 'code',
+    title: { ar: 'تطوير المواقع وتطبيقات الويب', en: 'Web & Application Development' },
+    desc: {
+      ar: 'بناء مواقع وتطبيقات ويب حديثة وسريعة ومتجاوبة، من الفكرة وحتى النسخة الجاهزة للنشر.',
+      en: 'Building modern, fast, responsive websites and web applications from concept to production-ready delivery.',
+    },
+  },
+  {
+    icon: 'phone',
+    title: { ar: 'تجارب متجاوبة لجميع الأجهزة', en: 'Responsive Digital Experiences' },
+    desc: {
+      ar: 'تجارب استخدام مصممة لتعمل بسلاسة على الجوال والتابلت وسطح المكتب مع اهتمام بالتفاصيل وسهولة الاستخدام.',
+      en: 'User experiences designed to work smoothly across mobile, tablet, and desktop with careful attention to usability and detail.',
+    },
+  },
+  {
+    icon: 'gear',
+    title: { ar: 'الأتمتة والتكاملات الذكية', en: 'Automation & Smart Integrations' },
+    desc: {
+      ar: 'ربط الخدمات وبناء مسارات عمل تقلل المهام اليدوية باستخدام APIs وn8n وأدوات الذكاء الاصطناعي عند الحاجة.',
+      en: 'Connecting services and building workflows that reduce manual work using APIs, n8n, and AI tools where they create real value.',
+    },
+  },
+  {
+    icon: 'palette',
+    title: { ar: 'تصميم وتطوير واجهات UI/UX', en: 'UI/UX Design & Implementation' },
+    desc: {
+      ar: 'تصميم واجهات واضحة وعصرية ثم تحويلها إلى تجربة فعلية متجاوبة ومتسقة مع هوية المشروع.',
+      en: 'Designing clear, modern interfaces and turning them into responsive experiences aligned with the product identity.',
+    },
+  },
+  {
+    icon: 'chart',
+    title: { ar: 'تحسين الأداء وSEO', en: 'Performance & SEO Optimization' },
+    desc: {
+      ar: 'تحسين سرعة الموقع وبنيته وتجربة الاستخدام والعناصر الأساسية التي تساعد على الظهور بشكل أفضل في محركات البحث.',
+      en: 'Improving speed, structure, user experience, and core technical elements that support stronger search visibility.',
+    },
+  },
+  {
+    icon: 'pen',
+    title: { ar: 'تحسين المنتجات والهوية الرقمية', en: 'Product & Digital Identity Improvement' },
+    desc: {
+      ar: 'مراجعة المواقع والمنتجات الرقمية القائمة وتحسين المحتوى والواجهة والتجربة البصرية لتظهر بصورة أكثر احترافية.',
+      en: 'Reviewing existing websites and digital products to improve content, interface quality, and overall visual experience.',
+    },
+  },
 ];
 
 /* Certificates. Never put national ID numbers here. Drive links must be shared as "Anyone with the link". */
@@ -94,7 +148,7 @@ export const certificates: { name: L; issuer: L; date: L; url: string; id?: stri
     name: { ar: 'الأمن السيبراني: ما بين التحديات والفرص', en: 'Cybersecurity: Challenges and Opportunities' },
     issuer: { ar: 'دروب – صندوق تنمية الموارد البشرية', en: 'Doroob – Human Resources Development Fund' },
     date: { ar: '30 سبتمبر 2026', en: 'Sep 30, 2026' },
-    note: { ar: '2 ساعات تدريبية', en: '2 training hours' },
+    note: { ar: 'ساعتان تدريبيتان', en: '2 training hours' },
     url: 'https://drive.google.com/file/d/1pjgDVpjnBBrD-X1nmOp7NB2zaS32E-o5/view?usp=drivesdk',
   },
   {
@@ -107,43 +161,58 @@ export const certificates: { name: L; issuer: L; date: L; url: string; id?: stri
 ];
 
 export const ui = {
-  letsTalk: { ar: 'لنتحدث', en: "Let's Talk" } as L,
-  buildTogether: { ar: 'لنبنِ معًا', en: "Let's Build Together" } as L,
-  explore: { ar: 'استكشف الأعمال', en: 'Explore Projects' } as L,
+  letsTalk: { ar: 'تواصل معي', en: 'Get in Touch' } as L,
+  buildTogether: { ar: 'ابدأ مشروعك معي', en: 'Start a Project' } as L,
+  explore: { ar: 'استعرض المشاريع', en: 'View Projects' } as L,
   sections: {
-    about: { ar: 'عنّي', en: 'ABOUT ME' } as L,
-    skills: { ar: 'مهاراتي', en: 'SKILLS' } as L,
-    work: { ar: 'أعمال مميزة', en: 'FEATURED WORKS' } as L,
-    services: { ar: 'خدماتي', en: 'SERVICES' } as L,
-    certificates: { ar: 'شهاداتي', en: 'CERTIFICATES' } as L,
-    contact: { ar: 'لنعمل معًا', en: "LET'S WORK TOGETHER" } as L,
+    about: { ar: 'نبذة عني', en: 'ABOUT ME' } as L,
+    skills: { ar: 'المهارات والتقنيات', en: 'SKILLS & TECHNOLOGIES' } as L,
+    work: { ar: 'مشاريع مختارة', en: 'SELECTED PROJECTS' } as L,
+    services: { ar: 'ما الذي أقدمه', en: 'WHAT I DO' } as L,
+    certificates: { ar: 'الشهادات', en: 'CERTIFICATIONS' } as L,
+    contact: { ar: 'لنبدأ مشروعك القادم', en: "LET'S BUILD SOMETHING" } as L,
   },
-  additional: { ar: 'إضافي', en: 'Additional' } as L,
-  viewCert: { ar: 'عرض الشهادة', en: 'View certificate' } as L,
+  additional: { ar: 'اهتمامات إضافية', en: 'Additional Expertise' } as L,
+  viewCert: { ar: 'عرض الشهادة', en: 'View Credential' } as L,
   admin: { ar: 'الإدارة', en: 'Admin' } as L,
   stats: {
-    projects: { ar: 'مشاريع مميزة', en: 'Featured Projects' } as L,
-    services: { ar: 'خدمات', en: 'Services' } as L,
+    projects: { ar: 'مشاريع مختارة', en: 'Selected Projects' } as L,
+    services: { ar: 'خدمات متخصصة', en: 'Core Services' } as L,
     tech: { ar: 'تقنية وأداة', en: 'Technologies & Tools' } as L,
   },
   contact: {
-    heading: { ar: 'لديك مشروع في بالك؟', en: 'Have a project in mind?' } as L,
-    text: { ar: 'أخبرني عن فكرتك — تطبيق ويب، منصة SaaS، أتمتة أو AI Agent — وسأتواصل معك.', en: "Tell me about your idea — a web app, a SaaS platform, an automation or an AI agent — and I'll get back to you." } as L,
-    whatsapp: { ar: 'واتساب', en: 'WhatsApp' } as L,
+    heading: { ar: 'هل لديك فكرة أو مشروع؟', en: 'Have an idea or project?' } as L,
+    text: {
+      ar: 'أرسل لي تفاصيل مشروعك أو التحدي الذي تريد حله، وسأراجع الفكرة وأتواصل معك لمناقشة أفضل طريقة للتنفيذ.',
+      en: 'Send me the details of your project or the problem you want to solve, and I’ll review it and get back to you to discuss the best approach.',
+    } as L,
+    whatsapp: { ar: 'تواصل عبر واتساب', en: 'Chat on WhatsApp' } as L,
     name: { ar: 'الاسم', en: 'Name' } as L,
-    email: { ar: 'البريد الإلكتروني', en: 'Email' } as L,
-    subject: { ar: 'الموضوع', en: 'Subject' } as L,
-    message: { ar: 'الرسالة', en: 'Message' } as L,
-    chooseHint: { ar: 'اختر طريقة الإرسال (تصلني نسخة في لوحة الإدارة في الحالتين):', en: 'Choose how to send (a copy always reaches my dashboard):' } as L,
-    viaEmail: { ar: 'إرسال عبر الإيميل', en: 'Send via Email' } as L,
+    email: { ar: 'البريد الإلكتروني', en: 'Email address' } as L,
+    subject: { ar: 'موضوع الرسالة', en: 'Subject' } as L,
+    message: { ar: 'اكتب تفاصيل مشروعك أو رسالتك هنا', en: 'Tell me about your project or message' } as L,
+    chooseHint: {
+      ar: 'اختر طريقة التواصل المناسبة لك. سيتم حفظ نسخة من الرسالة في لوحة الإدارة.',
+      en: 'Choose your preferred contact method. A copy of your message will be saved to the dashboard.',
+    } as L,
+    viaEmail: { ar: 'إرسال عبر البريد', en: 'Send by Email' } as L,
     viaWa: { ar: 'إرسال عبر واتساب', en: 'Send via WhatsApp' } as L,
-    sending: { ar: 'جارٍ الإرسال...', en: 'Sending...' } as L,
-    doneEmail: { ar: '✓ تم حفظ رسالتك وفُتح تطبيق البريد لإكمال الإرسال.', en: '✓ Message saved and your email app opened to finish sending.' } as L,
-    doneWa: { ar: '✓ تم حفظ رسالتك وفُتح واتساب لإكمال الإرسال.', en: '✓ Message saved and WhatsApp opened to finish sending.' } as L,
-    partial: { ar: 'فُتح التطبيق لإرسال رسالتك، لكن تعذّر حفظ نسخة في لوحة الإدارة.', en: 'The app opened to send your message, but a copy could not be saved to the dashboard.' } as L,
-    mailSubject: { ar: 'رسالة من موقعك', en: 'Message from your website' } as L,
+    sending: { ar: 'جارٍ حفظ الرسالة...', en: 'Saving message...' } as L,
+    doneEmail: {
+      ar: '✓ تم حفظ رسالتك وفتح تطبيق البريد لإكمال الإرسال.',
+      en: '✓ Your message was saved and your email app was opened to complete sending.',
+    } as L,
+    doneWa: {
+      ar: '✓ تم حفظ رسالتك وفتح واتساب لإكمال الإرسال.',
+      en: '✓ Your message was saved and WhatsApp was opened to complete sending.',
+    } as L,
+    partial: {
+      ar: 'تم فتح وسيلة التواصل، لكن تعذّر حفظ نسخة من الرسالة في لوحة الإدارة.',
+      en: 'Your contact app was opened, but a copy of the message could not be saved to the dashboard.',
+    } as L,
+    mailSubject: { ar: 'رسالة جديدة من موقع منصور قصقوص', en: 'New message from Mansour Qasqous Portfolio' } as L,
     waName: { ar: 'الاسم: ', en: 'Name: ' } as L,
-    waEmail: { ar: 'البريد: ', en: 'Email: ' } as L,
+    waEmail: { ar: 'البريد الإلكتروني: ', en: 'Email: ' } as L,
     waSubject: { ar: 'الموضوع: ', en: 'Subject: ' } as L,
   },
   rights: { ar: 'جميع الحقوق محفوظة.', en: 'All rights reserved.' } as L,
