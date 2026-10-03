@@ -44,7 +44,7 @@ export const about = {
 };
 
 export const skills = [
-  { title: 'Frontend', items: ['React', 'TypeScript', 'Tailwind CSS'] },
+  { title: 'Frontend & Mobile', items: ['React', 'TypeScript', 'Tailwind CSS', 'React Native', 'Flutter'] },
   { title: 'Backend & Database', items: ['Node.js', 'Express', 'Supabase', 'PostgreSQL'] },
   { title: 'Tools & Deployment', items: ['VS Code', 'Git', 'GitHub', 'Vercel', 'Google AI Studio'] },
   { title: 'AI & Automation', items: ['AI Agents', 'Prompt Engineering', 'n8n', 'Hermes', 'DeepSeek'] },
