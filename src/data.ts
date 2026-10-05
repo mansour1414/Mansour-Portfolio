@@ -48,9 +48,9 @@ export const about = {
 
 export const skills = [
   { title: 'Frontend', items: ['React', 'TypeScript', 'HTML', 'CSS', 'Tailwind CSS'] },
-  { title: 'Backend & Database', items: ['Node.js', 'Supabase', 'PostgreSQL', 'REST APIs'] },
-  { title: 'Tools & Deployment', items: ['Vite', 'Git', 'GitHub', 'Vercel', 'VS Code'] },
-  { title: 'AI & Automation', items: ['AI Agents', 'Prompt Engineering', 'n8n', 'API Integrations'] },
+  { title: 'Backend & Database', items: ['Node.js', 'Express', 'Supabase', 'PostgreSQL', 'REST APIs'] },
+  { title: 'Tools & Deployment', items: ['Vite', 'Git', 'GitHub', 'Vercel', 'VS Code', 'Google AI Studio'] },
+  { title: 'AI & Automation', items: ['AI Agents', 'Prompt Engineering', 'n8n', 'Hermes', 'DeepSeek', 'API Integrations'] },
 ];
 export const skillsExtra: L = {
   ar: 'تحليل الأسواق المالية ومتابعة الأسهم السعودية والأمريكية',
@@ -64,7 +64,7 @@ export const projects: { name: string; icon: string; desc: L; tech: string[]; ur
       ar: 'تطبيق ويب لتبسيط التعامل مع ملفات PDF والصور من خلال أدوات واضحة وسريعة لإدارة المستندات وتنفيذ المهام اليومية بكفاءة.',
       en: 'A web application that simplifies working with PDFs and images through clear, fast tools for document management and everyday file tasks.',
     },
-    url: '', // [ناقص] project link
+    url: 'https://github.com/mansour1414/EASYPDF',
   },
   {
     name: 'Yugen Forge', icon: 'sparkle', tech: ['React', 'TypeScript', 'Node.js', 'Supabase'],
@@ -72,7 +72,7 @@ export const projects: { name: string; icon: string; desc: L; tech: string[]; ur
       ar: 'موقع وهوية رقمية لشركة تقنية تقدم تطوير المواقع والأنظمة والمنتجات الرقمية، وتصميم UI/UX، والتحسين والاستشارات التقنية.',
       en: 'A digital presence for a technology company providing web and software development, digital products, UI/UX design, optimization, and technical consulting.',
     },
-    url: '', // [ناقص] project link
+    url: 'https://github.com/mansour1414/YF-YUGEN-FORGE',
   },
 ];
 
