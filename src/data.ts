@@ -50,7 +50,7 @@ export const skills = [
   { title: 'Frontend', items: ['React', 'TypeScript', 'HTML', 'CSS', 'Tailwind CSS'] },
   { title: 'Backend & Database', items: ['Node.js', 'Express', 'Supabase', 'PostgreSQL', 'REST APIs'] },
   { title: 'Tools & Deployment', items: ['Vite', 'Git', 'GitHub', 'Vercel', 'VS Code', 'Google AI Studio'] },
-  { title: 'AI & Automation', items: ['AI Agents', 'Prompt Engineering', 'n8n', 'Hermes', 'DeepSeek', 'API Integrations'] },
+  { title: 'AI & Automation', items: ['AI Agents', 'Prompt Engineering', 'n8n', 'Hermes', 'API Integrations'] },
 ];
 export const skillsExtra: L = {
   ar: 'تحليل الأسواق المالية ومتابعة الأسهم السعودية والأمريكية',
